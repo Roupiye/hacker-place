@@ -21,7 +21,18 @@
 require "test_helper"
 
 class MotherBoardHardwareTest < ActiveSupport::TestCase
-  # should be invalid if any sockets of config is missing
-  test "idunno" do
+  test "after_create should set the sockets_harwares using mother_board" do
+    mom = create(:mother_board)
+    mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
+    assert_empty mom_awe.sockets
+
+    create(:sata_socket, mother_board: mom)
+    mom.reload
+    mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
+    refute_empty mom_awe.sockets
+    assert_equal SataSocketHardware, mom_awe.sockets.last.class
   end
+
+  # test "sockets" do
+  # end
 end

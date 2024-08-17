@@ -21,8 +21,6 @@
 #  fk_rails_...  (hard_drive_hardware_id => hard_drive_hardwares.id)
 #
 class Partition < ApplicationRecord
-  self.implicit_order_column = "created_at"
-
   belongs_to :hard_drive_hardware
 
   enum :type, [:ext4, :ntfs, :fat]

@@ -32,8 +32,6 @@ class VProcessValidator < ActiveModel::Validator
 end
 
 class VProcess < ApplicationRecord
-  self.implicit_order_column = "created_at"
-
   belongs_to :machine
   has_one :lgo_process
 

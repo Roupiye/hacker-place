@@ -41,8 +41,6 @@ class LgoProcessValidator < ActiveModel::Validator
 end
 
 class LgoProcess < ApplicationRecord
-  self.implicit_order_column = "created_at"
-
   validates_with LgoProcessValidator
 
   belongs_to :v_process

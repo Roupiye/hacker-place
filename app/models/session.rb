@@ -18,8 +18,6 @@
 #  fk_rails_...  (player_id => players.id)
 #
 class Session < ApplicationRecord
-  self.implicit_order_column = "created_at"
-
   belongs_to :player
 
   before_create do

@@ -15,7 +15,7 @@
 #
 # Indexes
 #
-#  index_hard_drives_on_socket_type_and_socket_id  (socket_type,socket_id)
+#  index_hard_drives_on_socket  (socket_type,socket_id)
 #
 require "test_helper"
 

@@ -19,9 +19,19 @@
 #  fk_rails_...  (mother_board_id => mother_boards.id)
 #
 class MotherBoardHardware < ApplicationRecord
-  self.implicit_order_column = "created_at"
+  include HasSocketablesConcern
+  # associtations for all sockets/socket_hardware classes
+  after_create :solder_sockets
 
-  has_many :hard_drive_hardwares
   belongs_to :mother_board
   belongs_to :machine
+
+  def solder_sockets
+    mother_board.sockets.each do |socket|
+      # SataSocketHardware.create(...)
+      "#{socket.class.name}Hardware"
+        .constantize
+        .create!(mother_board_hardware: self, socket: socket)
+    end
+  end
 end

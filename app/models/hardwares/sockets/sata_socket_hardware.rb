@@ -19,6 +19,6 @@
 #  fk_rails_...  (sata_socket_id => sata_sockets.id)
 #
 class SataSocketHardware < ApplicationRecord
-  has_one :mother_board_hardware
-  has_one :sata_socket
+  belongs_to :mother_board_hardware
+  belongs_to :socket, class_name: :SataSocket, foreign_key: :sata_socket_id
 end

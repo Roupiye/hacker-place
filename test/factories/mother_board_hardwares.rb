@@ -20,6 +20,5 @@
 #
 FactoryBot.define do
   factory :mother_board_hardware do
-    
   end
 end

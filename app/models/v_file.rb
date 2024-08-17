@@ -15,9 +15,11 @@
 #  index_v_files_on_machine_id           (machine_id)
 #  index_v_files_on_name_and_machine_id  (name,machine_id) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (machine_id => machines.id)
+#
 class VFile < ApplicationRecord
-  self.implicit_order_column = "created_at"
-
   belongs_to :machine
   validates :name, uniqueness: {scope: :machine_id}, length: {minimum: 1, maximum: 100}
 end

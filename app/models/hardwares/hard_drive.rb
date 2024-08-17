@@ -15,17 +15,15 @@
 #
 # Indexes
 #
-#  index_hard_drives_on_socket_type_and_socket_id  (socket_type,socket_id)
+#  index_hard_drives_on_socket  (socket_type,socket_id)
 #
 class HardDrive < ApplicationRecord
-  self.implicit_order_column = "created_at"
-
   include BuyableConcern
 
   has_many :hard_drive_hardwares
-  enum :socket_type, [:sata, :msata, :usb]
 
   validates :speed_megabytes, presence: true
   validates :capacity_megabytes, presence: true
-  validates :socket_type, presence: true
+
+  belongs_to :socket, polymorphic: true
 end

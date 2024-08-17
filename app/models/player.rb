@@ -20,8 +20,6 @@
 #  fk_rails_...  (machine_id => machines.id)
 #
 class Player < ApplicationRecord
-  self.implicit_order_column = "created_at"
-
   has_secure_password
 
   generates_token_for :email_verification, expires_in: 2.days do

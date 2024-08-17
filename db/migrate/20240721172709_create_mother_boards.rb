@@ -5,6 +5,7 @@ class CreateMotherBoards < ActiveRecord::Migration[7.1]
       t.float :durability_loss, null: false
       t.string :product_model_name, null: false
       t.string :product_model_id, null: false
+      t.integer :mem_max_capacity_megabytes, null: false
 
       t.timestamps
     end

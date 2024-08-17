@@ -16,17 +16,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
 
   create_table "hard_drive_hardwares", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "hard_drive_id", null: false
-    t.uuid "mother_board_hardware_id", null: false
     t.boolean "bootable", null: false
     t.jsonb "path_mount_table"
     t.string "name", null: false
-    t.uuid "connected_socket_id"
-    t.string "connected_socket_type"
+    t.string "connected_socket_type", null: false
+    t.uuid "connected_socket_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["connected_socket_id", "connected_socket_type"], name: "idx_on_connected_socket_id_connected_socket_type_435eb5da67"
+    t.index ["connected_socket_type", "connected_socket_id"], name: "index_hard_drive_hardwares_on_connected_socket"
     t.index ["hard_drive_id"], name: "index_hard_drive_hardwares_on_hard_drive_id"
-    t.index ["mother_board_hardware_id"], name: "index_hard_drive_hardwares_on_mother_board_hardware_id"
   end
 
   create_table "hard_drives", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -35,11 +33,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
     t.float "durability_loss", null: false
     t.string "product_model_name", null: false
     t.string "product_model_id", null: false
-    t.uuid "socket_id", null: false
     t.string "socket_type", null: false
+    t.uuid "socket_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["socket_type", "socket_id"], name: "index_hard_drives_on_socket_type_and_socket_id"
+    t.index ["socket_type", "socket_id"], name: "index_hard_drives_on_socket"
   end
 
   create_table "lgo_processes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -77,6 +75,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
     t.float "durability_loss", null: false
     t.string "product_model_name", null: false
     t.string "product_model_id", null: false
+    t.integer "mem_max_capacity_megabytes", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -156,7 +155,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
   end
 
   add_foreign_key "hard_drive_hardwares", "hard_drives", column: "hard_drive_id"
-  add_foreign_key "hard_drive_hardwares", "mother_board_hardwares"
   add_foreign_key "lgo_processes", "v_processes"
   add_foreign_key "mother_board_hardwares", "machines"
   add_foreign_key "mother_board_hardwares", "mother_boards"
@@ -166,5 +164,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
   add_foreign_key "sata_socket_hardwares", "sata_sockets"
   add_foreign_key "sata_sockets", "mother_boards"
   add_foreign_key "sessions", "players"
+  add_foreign_key "v_files", "machines"
   add_foreign_key "v_processes", "machines"
 end

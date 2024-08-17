@@ -16,5 +16,7 @@
 #  fk_rails_...  (mother_board_id => mother_boards.id)
 #
 class SataSocket < ApplicationRecord
-  has_one :mother_board
+  belongs_to :mother_board
+
+  has_many :hard_drives, as: :socket, class_name: :HardDrive
 end

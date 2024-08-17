@@ -14,6 +14,10 @@ module HackerPlace
     config.autoload_paths << "#{root}/app/models/hardwares"
     config.autoload_paths << "#{root}/app/models/hardwares/sockets"
     config.autoload_paths << "#{root}/app/broadcasts"
+
+
+    config.eager_load_paths << "#{root}/app/models/hardwares"
+    config.eager_load_paths << "#{root}/app/models/hardwares/sockets"
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.1
 

@@ -15,6 +15,10 @@
 #  index_v_files_on_machine_id           (machine_id)
 #  index_v_files_on_name_and_machine_id  (name,machine_id) UNIQUE
 #
+# Foreign Keys
+#
+#  fk_rails_...  (machine_id => machines.id)
+#
 FactoryBot.define do
   factory :v_file do
     association :machine
