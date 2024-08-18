@@ -4,12 +4,12 @@
 #
 #  id                    :uuid             not null, primary key
 #  bootable              :boolean          not null
-#  connected_socket_type :string           not null
+#  connected_socket_type :string
 #  name                  :string           not null
 #  path_mount_table      :jsonb
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  connected_socket_id   :uuid             not null
+#  connected_socket_id   :uuid
 #  hard_drive_id         :uuid             not null
 #
 # Indexes

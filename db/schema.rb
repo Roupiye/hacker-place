@@ -19,8 +19,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
     t.boolean "bootable", null: false
     t.jsonb "path_mount_table"
     t.string "name", null: false
-    t.string "connected_socket_type", null: false
-    t.uuid "connected_socket_id", null: false
+    t.string "connected_socket_type"
+    t.uuid "connected_socket_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["connected_socket_type", "connected_socket_id"], name: "index_hard_drive_hardwares_on_connected_socket"
@@ -34,10 +34,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
     t.string "product_model_name", null: false
     t.string "product_model_id", null: false
     t.string "socket_type", null: false
-    t.uuid "socket_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["socket_type", "socket_id"], name: "index_hard_drives_on_socket"
   end
 
   create_table "lgo_processes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

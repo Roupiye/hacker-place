@@ -4,12 +4,12 @@
 #
 #  id                    :uuid             not null, primary key
 #  bootable              :boolean          not null
-#  connected_socket_type :string           not null
+#  connected_socket_type :string
 #  name                  :string           not null
 #  path_mount_table      :jsonb
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  connected_socket_id   :uuid             not null
+#  connected_socket_id   :uuid
 #  hard_drive_id         :uuid             not null
 #
 # Indexes
@@ -23,5 +23,12 @@
 #
 FactoryBot.define do
   factory :hard_drive_hardware do
+    name { SecureRandom.alphanumeric }
+    bootable { false }
+    sata
+
+    trait :sata do
+      hard_drive { build(:hard_drive, :sata) }
+    end
   end
 end

@@ -29,10 +29,22 @@ class MotherBoardHardwareTest < ActiveSupport::TestCase
     create(:sata_socket, mother_board: mom)
     mom.reload
     mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
-    refute_empty mom_awe.sockets
+    assert_equal 1, mom_awe.sockets.size
     assert_equal SataSocketHardware, mom_awe.sockets.last.class
   end
 
-  # test "sockets" do
-  # end
+  test "plug something to socket" do
+    mom = create(
+      :mother_board,
+      sata_sockets: [
+        build(:sata_socket)
+      ]
+    )
+
+    mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
+    hard_drive_awe = create(:hard_drive_hardware, :sata)
+
+    mom_awe.sockets.last.plug(hard_drive_awe)
+    assert_equal mom_awe.sockets.last.plugged_hardware, hard_drive_awe
+  end
 end

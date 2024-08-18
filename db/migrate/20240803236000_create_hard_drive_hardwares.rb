@@ -6,7 +6,7 @@ class CreateHardDriveHardwares < ActiveRecord::Migration[7.1]
       t.jsonb :path_mount_table
       t.string :name, null: false
 
-      t.references :connected_socket, polymorphic: true, null: false, type: :uuid
+      t.references :connected_socket, polymorphic: true, null: true, type: :uuid
 
       t.timestamps
     end

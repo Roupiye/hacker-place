@@ -7,9 +7,9 @@ class CreateHardDrives < ActiveRecord::Migration[7.1]
       t.string :product_model_name, null: false
       t.string :product_model_id, null: false
 
-      t.references :socket, polymorphic: true, null: false, type: :uuid
+      # t.references :socket, polymorphic: true, null: false, type: :uuid
       # t.uuid  :socket_id, null: false
-      # t.string  :socket_type, null: false
+      t.string  :socket_type, null: false
 
       t.timestamps
     end

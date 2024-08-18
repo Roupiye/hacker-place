@@ -1,16 +1,16 @@
 module HasSocketablesConcern
   extend ActiveSupport::Concern
 
-  included do
-    # [:sata_socket, :usb_socket]
-    @@sockets ||= []
-    Dir.entries("#{Rails.root}/app/models/hardwares/sockets").each do |file|
-      if file[-9..] == "socket.rb"
-        @@sockets << file.split(".").first.to_sym
-      end
+  # [:sata_socket, :usb_socket]
+  @@sockets ||= []
+  Dir.entries("#{Rails.root}/app/models/hardwares/sockets").each do |file|
+    if file[-9..] == "socket.rb"
+      @@sockets << file.split(".").first.to_sym
     end
-    # @@sockets.freeze
+  end
+  @@sockets.freeze
 
+  included do
     # if hardware
     #   has_many :sata_socket_hardwares
     #   has_many :usb_socket_harwares

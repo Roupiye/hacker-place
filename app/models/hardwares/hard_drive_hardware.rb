@@ -4,12 +4,12 @@
 #
 #  id                    :uuid             not null, primary key
 #  bootable              :boolean          not null
-#  connected_socket_type :string           not null
+#  connected_socket_type :string
 #  name                  :string           not null
 #  path_mount_table      :jsonb
 #  created_at            :datetime         not null
 #  updated_at            :datetime         not null
-#  connected_socket_id   :uuid             not null
+#  connected_socket_id   :uuid
 #  hard_drive_id         :uuid             not null
 #
 # Indexes
@@ -25,7 +25,7 @@ class HardDriveHardware < ApplicationRecord
   belongs_to :hard_drive
 
   validates :name, presence: true
-  validates :bootable, presence: true
+  validates :bootable, inclusion: { in: [ true, false ] }
 
-  belongs_to :connected_socket, polymorphic: true
+  belongs_to :connected_socket, polymorphic: true, optional: true
 end

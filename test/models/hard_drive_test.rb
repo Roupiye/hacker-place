@@ -11,11 +11,6 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  product_model_id   :string           not null
-#  socket_id          :uuid             not null
-#
-# Indexes
-#
-#  index_hard_drives_on_socket  (socket_type,socket_id)
 #
 require "test_helper"
 

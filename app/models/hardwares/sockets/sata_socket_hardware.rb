@@ -21,4 +21,9 @@
 class SataSocketHardware < ApplicationRecord
   belongs_to :mother_board_hardware
   belongs_to :socket, class_name: :SataSocket, foreign_key: :sata_socket_id
+  has_one :plugged_hardware, class_name: :HardDriveHardware, as: :connected_socket
+
+  def plug(hardware)
+    hardware.update!(connected_socket: self)
+  end
 end

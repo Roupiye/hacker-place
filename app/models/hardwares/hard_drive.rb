@@ -11,11 +11,6 @@
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  product_model_id   :string           not null
-#  socket_id          :uuid             not null
-#
-# Indexes
-#
-#  index_hard_drives_on_socket  (socket_type,socket_id)
 #
 class HardDrive < ApplicationRecord
   include BuyableConcern
@@ -25,5 +20,5 @@ class HardDrive < ApplicationRecord
   validates :speed_megabytes, presence: true
   validates :capacity_megabytes, presence: true
 
-  belongs_to :socket, polymorphic: true
+  # belongs_to :socket, polymorphic: true
 end
