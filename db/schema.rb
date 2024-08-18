@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_18_201029) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -126,6 +126,22 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
     t.index ["player_id"], name: "index_sessions_on_player_id"
   end
 
+  create_table "usb_socket_hardwares", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "mother_board_hardware_id", null: false
+    t.uuid "usb_socket_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mother_board_hardware_id"], name: "index_usb_socket_hardwares_on_mother_board_hardware_id"
+    t.index ["usb_socket_id"], name: "index_usb_socket_hardwares_on_usb_socket_id"
+  end
+
+  create_table "usb_sockets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "mother_board_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["mother_board_id"], name: "index_usb_sockets_on_mother_board_id"
+  end
+
   create_table "v_files", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "machine_id", null: false
     t.string "name"
@@ -162,6 +178,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_03_236006) do
   add_foreign_key "sata_socket_hardwares", "sata_sockets"
   add_foreign_key "sata_sockets", "mother_boards"
   add_foreign_key "sessions", "players"
+  add_foreign_key "usb_socket_hardwares", "mother_board_hardwares"
+  add_foreign_key "usb_socket_hardwares", "usb_sockets"
+  add_foreign_key "usb_sockets", "mother_boards"
   add_foreign_key "v_files", "machines"
   add_foreign_key "v_processes", "machines"
 end

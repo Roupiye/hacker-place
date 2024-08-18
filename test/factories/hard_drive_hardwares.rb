@@ -30,5 +30,9 @@ FactoryBot.define do
     trait :sata do
       hard_drive { build(:hard_drive, :sata) }
     end
+
+    trait :usb do
+      hard_drive { build(:hard_drive, :usb) }
+    end
   end
 end

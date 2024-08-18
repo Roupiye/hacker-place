@@ -22,10 +22,10 @@
 #  fk_rails_...  (hard_drive_id => hard_drives.id)
 #
 class HardDriveHardware < ApplicationRecord
+  include HardwarePlugableConcern
+
   belongs_to :hard_drive
 
   validates :name, presence: true
   validates :bootable, inclusion: { in: [ true, false ] }
-
-  belongs_to :connected_socket, polymorphic: true, optional: true
 end

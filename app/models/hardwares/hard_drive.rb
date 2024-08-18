@@ -19,6 +19,4 @@ class HardDrive < ApplicationRecord
 
   validates :speed_megabytes, presence: true
   validates :capacity_megabytes, presence: true
-
-  # belongs_to :socket, polymorphic: true
 end

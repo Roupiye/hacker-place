@@ -66,3 +66,11 @@ access 0.0.0.0:3000 to test the game
   cd app/lgo
   go build
 ```
+
+
+# code docs
+
+**create new socket**
+create new socket and socket_hardware for the new socket
+
+add traits to related hardware in the test/factories

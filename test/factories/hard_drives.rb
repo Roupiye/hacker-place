@@ -24,5 +24,9 @@ FactoryBot.define do
     trait :sata do
       socket_type { "SataSocket" }
     end
+
+    trait :usb do
+      socket_type { "UsbSocket" }
+    end
   end
 end
