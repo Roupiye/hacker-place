@@ -14,6 +14,7 @@
 #
 class HardDrive < ApplicationRecord
   include BuyableConcern
+  include BuyablePlugableConcern
 
   has_many :hard_drive_hardwares
 

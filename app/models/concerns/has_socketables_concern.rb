@@ -2,11 +2,8 @@ module HasSocketablesConcern
   extend ActiveSupport::Concern
 
   # [:sata_socket, :usb_socket]
-  @@sockets ||= []
-  Dir.entries("#{Rails.root}/app/models/hardwares/sockets").each do |file|
-    if file[-9..] == "socket.rb"
-      @@sockets << file.split(".").first.to_sym
-    end
+  @@sockets ||= ::ApplicationSocket.socket_classes_list.map do |klass|
+    klass.name.underscore.to_sym
   end
   @@sockets.freeze
 

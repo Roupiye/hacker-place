@@ -23,8 +23,7 @@
 #
 class HardDriveHardware < ApplicationRecord
   include HardwarePlugableConcern
-
-  belongs_to :hard_drive
+  include HardwareConcern
 
   validates :name, presence: true
   validates :bootable, inclusion: { in: [ true, false ] }

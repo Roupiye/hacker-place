@@ -23,14 +23,22 @@ require "test_helper"
 class MotherBoardHardwareTest < ActiveSupport::TestCase
   test "after_create should set the sockets_harwares using mother_board" do
     mom = create(:mother_board)
+
     mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
     assert_empty mom_awe.sockets
 
-    create(:sata_socket, mother_board: mom)
-    mom.reload
-    mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
-    assert_equal 1, mom_awe.sockets.size
-    assert_equal SataSocketHardware, mom_awe.sockets.last.class
+    ApplicationSocket.socket_classes_list do |klass|
+      mom = create(:mother_board)
+
+      # create(sata_socket, mother_board: mom)
+      create(klass.name.underscore, mother_board: mom)
+      mom.reload
+      mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
+
+      assert_equal 1, mom_awe.sockets.size
+      # assert_equal SataSocketHardware.constantize, mom_awe.sockets.last.class
+      assert_equal (klass.name + "Hardware").constantize, mom_awe.sockets.last.class
+    end
   end
 
   test "plug something to socket" do

@@ -17,6 +17,4 @@
 #
 class SataSocket < ApplicationRecord
   belongs_to :mother_board
-
-  has_many :hard_drives, as: :socket, class_name: :HardDrive
 end

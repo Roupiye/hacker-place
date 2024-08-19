@@ -1,8 +1,16 @@
+class WrongSocketPlugError < StandardError
+  def initialize = super("plugging hardware in the wrong socket")
+end
+
 module SocketHardwareConcern
   extend ActiveSupport::Concern
 
   included do
     def plug(hardware)
+      if hardware.buyable.socket_type != self.class.name.gsub("Hardware", "")
+        raise WrongSocketPlugError
+      end
+
       hardware.update!(connected_socket: self)
     end
   end

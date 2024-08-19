@@ -17,6 +17,8 @@ class MotherBoard < ApplicationRecord
   include HasSocketablesConcern
   # associtations for all sockets/socket_hardware classes
 
+  has_many :mother_board_hardwares
+
   validates :config, presence: true
   validates :mem_max_capacity_megabytes, presence: true
 end
