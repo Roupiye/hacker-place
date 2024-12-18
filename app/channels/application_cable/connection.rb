@@ -11,8 +11,7 @@ module ApplicationCable
     def handle_any_error(exception)
       Rails.logger.error "WebSocket error: #{exception.message}"
       Rails.logger.error exception.backtrace.join("\n")
-
-      close
+      # close
     end
   end
 end
