@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby ">= 3.2.2"
 
-gem "rails", "~> 7.1.2"
+gem "rails", "~> 8"
 gem "pg"
 gem "puma", ">= 5.0"
 
@@ -38,7 +38,7 @@ end
 group :development do
   gem "database_consistency", require: false
   gem "web-console"
-  gem "annotate", git: "https://github.com/ctran/annotate_models.git"
+  # gem "annotate", git: "https://github.com/ctran/annotate_models.git"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
