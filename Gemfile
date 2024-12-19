@@ -38,7 +38,7 @@ end
 group :development do
   gem "database_consistency", require: false
   gem "web-console"
-  # gem "annotate", git: "https://github.com/ctran/annotate_models.git"
+  gem "annotaterb"
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
