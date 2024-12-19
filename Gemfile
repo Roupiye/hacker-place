@@ -55,3 +55,5 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
 
 gem "model_probe", "~> 1.1"
+
+gem "falcon", "~> 0.48.3"
