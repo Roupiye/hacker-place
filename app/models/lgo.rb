@@ -96,7 +96,7 @@ class Lgo
     @v_process.lgo_process.update!(state: "dead", ended_at: Time.now)
 
     puts "killing cpulimit for #{@pid} #{@cpu_limit_pid}" if verbose?
-    `kill #{@cpu_limit_pid}`
+    `kill #{@cpu_limit_pid} > /dev/null 2>&1`
   end
 
   def initiate_lua_script(code)

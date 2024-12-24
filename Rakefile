@@ -4,3 +4,8 @@
 require_relative "config/application"
 
 Rails.application.load_tasks
+
+# if Rails.env.test? && IO.popen('ps').readlines.any? {|l| l.include?('tailwindcss -i')}
+if Rails.env.test?
+  Rake::Task["test:prepare"].prerequisites.delete("tailwindcss:build")
+end
