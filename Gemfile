@@ -47,7 +47,8 @@ end
 
 group :test do
   gem "capybara"
-  gem "selenium-webdriver"
+  gem "capybara-playwright-driver"
+
   gem "simplecov", require: false
 end
 

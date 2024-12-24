@@ -1,15 +1,21 @@
 require "test_helper"
 
-class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  driven_by :selenium, using: :headless_chrome, screen_size: [1400, 1400]
+Capybara.register_driver :my_playwright do |app|
+  Capybara::Playwright::Driver.new(app,
+    browser_type: ENV["PLAYWRIGHT_BROWSER"]&.to_sym || :chromium,
+    headless: (false unless ENV["CI"] || ENV["PLAYWRIGHT_HEADLESS"]))
+end
 
-  def sign_in_as(user)
+class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+  driven_by :my_playwright, screen_size: [1000, 700]
+
+  def sign_in_as(player)
     visit sign_in_url
-    fill_in :email, with: user.email
-    fill_in :password, with: "Secret1*3*5*"
+    fill_in :email, with: player.email
+    fill_in :password, with: "123456"
     click_on "Sign in"
 
     assert_current_path root_url
-    user
+    player
   end
 end
