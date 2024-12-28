@@ -8,6 +8,7 @@ import consumer from "../channels/consumer"
 import controller from "./application_controller"
 import CableReady from "cable_ready"
 
+// TODO auto import these
 import CableFromController from "./cable_from_controller"
 application.register("cable-from", CableFromController)
 import IdeController from "./ide_controller"
@@ -28,6 +29,8 @@ import MonitoringController from "./monitoring_controller"
 application.register("monitoring", MonitoringController)
 import FileController from "./file_controller"
 application.register("file", FileController)
+import ClickController from "./click_controller"
+application.register("click", ClickController)
 
 application.consumer = consumer
 

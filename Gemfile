@@ -12,8 +12,7 @@ gem "tailwindcss-rails", "~> 2.3"
 
 gem "turbo-rails"
 gem "stimulus-rails"
-gem "phlex-rails", "~> 1.1"
-gem "phlex", ">= 1.9.2"
+gem "phlex-rails", ">= 2.0.0.rc1"
 gem "stimulus_reflex", ">= 3.5.0.rc4"
 
 gem "authentication-zero", "~> 3.0"
@@ -48,6 +47,7 @@ end
 group :test do
   gem "capybara"
   gem "capybara-playwright-driver"
+  gem "clipboard"
 
   gem "simplecov", require: false
 end

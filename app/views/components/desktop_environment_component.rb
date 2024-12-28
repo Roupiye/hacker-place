@@ -4,6 +4,15 @@ class DesktopEnvironmentComponent < ApplicationComponent
   end
 
   def view_template
+    button(
+      class: "btn absolute hidden",
+      onclick: safe("debug_console.showModal()"),
+      data: {
+        controller: "click",
+        action: "keydown.alt+c@window->click#click"
+      }
+    ) { "open modal" }
+    debug_console
     div(
       id: "de",
       class: "flex flex-col min-h-screen",
@@ -30,6 +39,24 @@ class DesktopEnvironmentComponent < ApplicationComponent
     }
   end
 
+  def debug_console
+    dialog(id: "debug_console", class: "modal") do
+      div(class: "modal-box") do
+        h3(class: "text-lg font-bold") { "Hello!" }
+        p(class: "py-4") { "Press ESC key or click the button below to close" }
+        div(class: "modal-action") do
+          form(method: "dialog") do
+            whitespace
+            comment { "if there is a button in form, it will close the modal" }
+            whitespace
+            button(class: "btn") { "Close" }
+          end
+        end
+      end
+    end
+
+  end
+
   def taskbar
     div(
       class: "bg-black/80 flex z-10",
@@ -40,7 +67,7 @@ class DesktopEnvironmentComponent < ApplicationComponent
       }
     ) {
       div(class: "dropdown dropdown-top") {
-        button(class: "font-semibold px-2 py-1") { "Applications" }
+        button(id: "de-task-menu", class: "font-semibold px-2 py-1") { "Applications" }
         ul(
           tabindex: "0",
           class:

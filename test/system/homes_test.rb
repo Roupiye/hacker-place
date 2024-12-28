@@ -7,9 +7,16 @@ class HomesTest < ApplicationSystemTestCase
 
     visit root_path
 
-    debugger
+    click_on "Applications"
+    click_on "ide"
 
-    assert_selector "#content" # Waits up to 10 seconds
-    assert_text "Welcome"
+    sleep 1
+    find('.view-lines').click
+    send_keys([:control, 'a'])
+    Clipboard.copy("print(\"uwu\")")
+    send_keys([:control, 'v'])
+    click_on "run"
+
+    assert_text "uwu"
   end
 end

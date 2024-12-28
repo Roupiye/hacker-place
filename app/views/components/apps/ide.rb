@@ -28,7 +28,7 @@ class Apps::Ide < ApplicationComponent
   def code_editor
     div(class: "grow flex", data_controller: "responsive-box") {
       div(
-        class: "absolute",
+        class: "absolute ide-editor",
         data_controller: "monaco",
         data_responsive_box_target: "el",
         data_ide_target: "code"
