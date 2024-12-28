@@ -21,7 +21,17 @@
 require "test_helper"
 
 class SataSocketHardwareTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "validate_socket_type" do
+    socket = build(:sata_socket_hardware)
+    hard_drive_awe = create(:hard_drive_hardware, :usb)
+
+    socket.plug(hard_drive_awe)
+    socket.valid?
+    refute_empty socket.errors[:plugged_hardware]
+
+    hard_drive_awe = create(:hard_drive_hardware, :sata)
+    socket.plug(hard_drive_awe)
+    socket.valid?
+    assert_empty socket.errors[:plugged_hardware]
+  end
 end

@@ -27,7 +27,7 @@ class MotherBoardHardwareTest < ActiveSupport::TestCase
     mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
     assert_empty mom_awe.sockets
 
-    ApplicationSocket.socket_classes_list do |klass|
+    ApplicationSocket.socket_classes_list.each do |klass|
       mom = create(:mother_board)
 
       # create(sata_socket, mother_board: mom)
@@ -41,7 +41,7 @@ class MotherBoardHardwareTest < ActiveSupport::TestCase
     end
   end
 
-  test "plug something to socket" do
+  test "plug something to socket and unplug" do
     mom = create(
       :mother_board,
       sata_sockets: [
@@ -52,7 +52,22 @@ class MotherBoardHardwareTest < ActiveSupport::TestCase
     mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
     hard_drive_awe = create(:hard_drive_hardware, :sata)
 
+    mom_awe.sockets.last.plug!(hard_drive_awe)
+    assert_equal mom_awe.sockets.last.plugged_hardware, hard_drive_awe
+    mom_awe.sockets.last.unplug!
+    assert_nil mom_awe.sockets.last.plugged_hardware
+    mom_awe.sockets.last.plug!(hard_drive_awe)
+    assert_equal mom_awe.sockets.last.plugged_hardware, hard_drive_awe
+    mom_awe.sockets.last.unplug!
+    assert_nil mom_awe.sockets.last.plugged_hardware
+
     mom_awe.sockets.last.plug(hard_drive_awe)
     assert_equal mom_awe.sockets.last.plugged_hardware, hard_drive_awe
+    mom_awe.sockets.last.unplug
+    assert_nil mom_awe.sockets.last.plugged_hardware
+    mom_awe.sockets.last.plug(hard_drive_awe)
+    assert_equal mom_awe.sockets.last.plugged_hardware, hard_drive_awe
+    mom_awe.sockets.last.unplug
+    assert_nil mom_awe.sockets.last.plugged_hardware
   end
 end

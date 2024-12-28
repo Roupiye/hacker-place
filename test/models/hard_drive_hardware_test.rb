@@ -35,8 +35,8 @@ class HardDriveHardwareTest < ActiveSupport::TestCase
     mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
     hard_drive_awe = create(:hard_drive_hardware, :usb)
 
-    assert_raise WrongSocketPlugError do
-      mom_awe.sockets.last.plug(hard_drive_awe)
+    assert_raise do
+      mom_awe.sockets.last.plug!(hard_drive_awe)
     end
   end
 end
