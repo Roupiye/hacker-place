@@ -4,6 +4,7 @@ ruby ">= 3.2.2"
 
 gem "rails", "~> 8"
 gem "pg"
+gem "falcon", "~> 0.48.3"
 gem "puma", ">= 5.0"
 
 gem "sprockets-rails"
@@ -22,6 +23,7 @@ gem "drb", "~> 2.2"
 gem "redis-session-store", "~> 0.11.5"
 gem "sys-proctable"
 gem "sidekiq", "~> 7.2"
+gem "model_probe", "~> 1.1"
 
 # gem "jbuilder"
 # gem "redis", ">= 4.0.1"
@@ -54,7 +56,3 @@ end
 
 gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
-
-gem "model_probe", "~> 1.1"
-
-gem "falcon", "~> 0.48.3"
