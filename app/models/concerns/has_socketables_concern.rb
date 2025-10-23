@@ -12,15 +12,15 @@ module HasSocketablesConcern
     #   has_many :sata_socket_hardwares
     #   has_many :usb_socket_harwares
     # else
-    #   has_many :sata_sockets
-    #   has_many :usb_sockets
+    #   has_many :sata_sockets + shit
+    #   has_many :usb_sockets + shit
     if hardware?
       @@sockets.each do |socket|
         has_many "#{socket.to_s}_hardwares".to_sym
       end
     else
       @@sockets.each do |socket|
-        has_many socket.to_s.pluralize.to_sym
+        # nothing
       end
     end
 
@@ -29,9 +29,13 @@ module HasSocketablesConcern
     # else
     #   [sata_sockets, usb_sockets].flatten
     def sockets
-      @@sockets.map do |socket|
-        send("#{socket.to_s}#{self.class.hardware? ? "_hardwares" : ""}".pluralize)
-      end.flatten
+      if self.class.hardware?
+        @@sockets.map do |socket|
+          send("#{socket.to_s}_hardwares".pluralize)
+        end.flatten
+      else
+        config["sockets"].map { it.to_s.classify.constantize.new() }
+      end
     end
   end
 

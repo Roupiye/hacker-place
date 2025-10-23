@@ -6,17 +6,14 @@
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  mother_board_hardware_id :uuid             not null
-#  usb_socket_id            :uuid             not null
 #
 # Indexes
 #
 #  index_usb_socket_hardwares_on_mother_board_hardware_id  (mother_board_hardware_id)
-#  index_usb_socket_hardwares_on_usb_socket_id             (usb_socket_id)
 #
 # Foreign Keys
 #
 #  fk_rails_...  (mother_board_hardware_id => mother_board_hardwares.id)
-#  fk_rails_...  (usb_socket_id => usb_sockets.id)
 #
 FactoryBot.define do
   factory :usb_socket_hardware do

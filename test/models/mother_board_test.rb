@@ -29,8 +29,8 @@ class MotherBoardTest < ActiveSupport::TestCase
     mom = create(:mother_board)
 
     assert_empty mom.sockets
-    create(:sata_socket, mother_board: mom)
-    mom.reload
+    mom.config["sockets"] << :sata_socket
+    mom.save!
     refute_empty mom.sockets
     assert_equal SataSocket, mom.sockets.last.class
   end

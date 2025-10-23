@@ -30,9 +30,9 @@ class MotherBoardHardwareTest < ActiveSupport::TestCase
     ApplicationSocket.socket_classes_list.each do |klass|
       mom = create(:mother_board)
 
-      # create(sata_socket, mother_board: mom)
-      create(klass.name.underscore, mother_board: mom)
-      mom.reload
+      # mom.sata_sockets << create(sata_socket)
+      mom.config["sockets"] << klass.name.underscore
+      mom.save!
       mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
 
       assert_equal 1, mom_awe.sockets.size
@@ -44,9 +44,7 @@ class MotherBoardHardwareTest < ActiveSupport::TestCase
   test "plug something to socket and unplug" do
     mom = create(
       :mother_board,
-      sata_sockets: [
-        build(:sata_socket)
-      ]
+      config: { sockets: [:sata_socket]}
     )
 
     mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))

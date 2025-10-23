@@ -13,8 +13,11 @@
 #
 FactoryBot.define do
   factory :mother_board do
+    # config do
+    #   { sockets: [:usb_socket, :sata_socket] }
+    # end
     config do
-      { owo: :owo }
+      { sockets: [] }
     end
     mem_max_capacity_megabytes { 1000 }
     durability_loss { 0.001 }

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
     resource :password_reset, only: [:new, :edit, :create, :update]
   end
   get "home/index"
+  get "config", to: "config#index"
   get "monitoring/scripts", as: :monitoring_scripts
   root "home#index"
 

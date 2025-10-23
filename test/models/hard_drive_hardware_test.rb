@@ -27,9 +27,7 @@ class HardDriveHardwareTest < ActiveSupport::TestCase
   test "plugging the drive into a different socket should ilegal" do
     mom = create(
       :mother_board,
-      sata_sockets: [
-        build(:sata_socket)
-      ]
+      config: { sockets: [:sata_socket]}
     )
 
     mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))

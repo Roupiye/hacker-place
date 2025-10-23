@@ -31,7 +31,7 @@ class MotherBoardHardware < ApplicationRecord
       # SataSocketHardware.create(...)
       "#{socket.class.name}Hardware"
         .constantize
-        .create!(mother_board_hardware: self, socket: socket)
+        .create!(mother_board_hardware: self)
     end
   end
 end
