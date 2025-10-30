@@ -47,7 +47,7 @@ class MotherBoardHardwareTest < ActiveSupport::TestCase
       config: { sockets: [:sata_socket]}
     )
 
-    mom_awe = create(:mother_board_hardware, mother_board: mom, machine: build(:machine))
+    mom_awe = mom.spawn_hardware(machine: build(:machine))
     hard_drive_awe = create(:hard_drive_hardware, :sata)
 
     mom_awe.sockets.last.plug!(hard_drive_awe)

@@ -21,4 +21,11 @@ class MotherBoard < ApplicationRecord
 
   validates :config, presence: true
   validates :mem_max_capacity_megabytes, presence: true
+
+  def spawn_hardware(machine:)
+    MotherBoardHardware.create!(
+      mother_board: self,
+      machine: 
+    )
+  end
 end
