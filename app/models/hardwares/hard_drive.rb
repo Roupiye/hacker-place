@@ -20,4 +20,10 @@ class HardDrive < ApplicationRecord
 
   validates :speed_megabytes, presence: true
   validates :capacity_megabytes, presence: true
+
+  def spawn_hardware
+    HardDriveHardware.create!(
+      hard_drive: self
+    )
+  end
 end

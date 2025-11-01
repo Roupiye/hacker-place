@@ -14,4 +14,18 @@ class ConfigReflex < ApplicationReflex
   def cancel_edit_mother_board
     morph "#config_form_1", render(Config::MotherBoardForm.new)
   end
+
+  def cancel_edit_hard_drive
+    morph "#config_form_2", render(Config::HardDriveForm.new)
+  end
+
+  def edit_hard_drive
+    hard_drive = HardDrive.find(element.dataset.hard_drive_id)
+    morph "#config_form_2", render(Config::HardDriveForm.new(hard_drive))
+  end
+
+  def spawn_hard_drive_hardware
+    hard_drive = HardDrive.find(element.dataset.hard_drive_id)
+    hard_drive.spawn_hardware
+  end
 end

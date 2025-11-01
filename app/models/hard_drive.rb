@@ -1,2 +1,0 @@
-class HardDrive < ApplicationRecord
-end

@@ -1,10 +1,6 @@
 class MotherBoardsController < ApplicationController
   before_action :set_mother_board, only: %i[ update destroy ]
 
-  # GET /mother_boards/1/edit
-  def edit
-  end
-
   # POST /mother_boards
   def create
     @mother_board = MotherBoard.new(mother_board_params)

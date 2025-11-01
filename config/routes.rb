@@ -1,8 +1,8 @@
 require "sidekiq/web"
 
 Rails.application.routes.draw do
-  resources :hard_drives, only: [:edit, :update, :create]
-  resources :mother_boards, only: [:edit, :update, :create]
+  resources :hard_drives, only: [:update, :create]
+  resources :mother_boards, only: [:update, :create]
   get "sign_in", to: "sessions#new"
   post "sign_in", to: "sessions#create"
   get "sign_up", to: "registrations#new"
