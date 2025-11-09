@@ -4,9 +4,11 @@ class ApplicationRecord < ActiveRecord::Base
   include CableReady::Broadcaster
   primary_abstract_class
 
-  def clean_attrs
-    attributes
-      .except!("id", "created_at", "updated_at")
-      .delete_if { |key, _| key.to_s.end_with?('_id') }
+  def clean_attrs(filter_exceptions: [])
+    filters = attributes.keys.select{it.to_s.end_with?('_id')}
+    filters += ["id", "created_at", "updated_at"]
+    filters -= filter_exceptions
+
+    attributes.except!(*filters)
   end
 end

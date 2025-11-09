@@ -52,7 +52,9 @@ class MotherBoardHardwareTest < ActiveSupport::TestCase
 
     mom_awe.sockets.last.plug!(hard_drive_awe)
     assert_equal mom_awe.sockets.last.plugged_hardware, hard_drive_awe
+    assert mom_awe.sockets.last.plugged?
     mom_awe.sockets.last.unplug!
+    refute mom_awe.sockets.last.plugged?
     assert_nil mom_awe.sockets.last.plugged_hardware
     mom_awe.sockets.last.plug!(hard_drive_awe)
     assert_equal mom_awe.sockets.last.plugged_hardware, hard_drive_awe

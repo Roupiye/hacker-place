@@ -9,7 +9,8 @@ end
 class SocketTypeValidator < ActiveModel::Validator
   def validate(record)
     if record.plugged_hardware
-      if record.plugged_hardware.buyable.socket_type != record.class.name.gsub("Hardware", "")
+      plugged_type = record.plugged_hardware.send(record.plugged_hardware.class.name.gsub("Hardware", "").underscore).socket_type
+      if plugged_type != record.class.name.gsub("Hardware", "")
         record.errors.add :plugged_hardware, "of wrong socket type"
       end
     end
@@ -21,6 +22,10 @@ module SocketHardwareConcern
 
   included do
     validates_with SocketTypeValidator
+
+    def plugged?
+      self.plugged_hardware.present?
+    end
 
     def plug(hardware)
       self.plugged_hardware = hardware

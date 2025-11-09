@@ -20,7 +20,6 @@
 #
 class HardDriveHardware < ApplicationRecord
   include HardwarePlugableConcern
-  include HardwareConcern
 
   belongs_to :hard_drive
 end

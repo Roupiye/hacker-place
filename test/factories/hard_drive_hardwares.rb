@@ -20,16 +20,14 @@
 #
 FactoryBot.define do
   factory :hard_drive_hardware do
-    name { SecureRandom.alphanumeric }
-    bootable { false }
     sata
 
     trait :sata do
-      buyable { build(:hard_drive, :sata) }
+      hard_drive { build(:hard_drive, :sata) }
     end
 
     trait :usb do
-      buyable { build(:hard_drive, :usb) }
+      hard_drive { build(:hard_drive, :usb) }
     end
   end
 end

@@ -1,6 +1,23 @@
 # frozen_string_literal: true
 
 class ConfigReflex < ApplicationReflex
+  def unplug
+    socket = element.dataset.socket_hardware_class.constantize.find_by(id: element.dataset.socket_hardware_id)
+    socket.unplug!
+  end
+
+  def plug_to_mom_hwe
+    # to do: kill myself
+    socket = SataSocketHardware.find_by(id: element.dataset.socket_hardware_id)
+    # socket ||= SataSocketHardware.find(element.dataset.socket_hardware_id)
+    plugable = HardDriveHardware.find_by(id: element.value.strip)
+    # plugable ||= HardDriveHardware.find_by(id: element.value.strip)
+
+    return if plugable.nil? || socket.nil?
+
+    socket.plug!(plugable)
+  end
+
   def spawn_mom_hardware
     mom = MotherBoard.find(element.dataset.mother_board_id)
     mom.spawn_hardware(machine: Machine.new)
