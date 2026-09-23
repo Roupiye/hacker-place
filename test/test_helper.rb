@@ -6,6 +6,7 @@ require_relative "../config/environment"
 require "rails/test_help"
 
 class ActiveSupport::TestCase
+  # todo remove parallelize from system tests
   parallelize(workers: :number_of_processors, threshold: 0)
 
   include FactoryBot::Syntax::Methods

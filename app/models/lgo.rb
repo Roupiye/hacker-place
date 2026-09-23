@@ -13,7 +13,15 @@ class Lgo
     unit_test: Lgo::UnitTestIntrinsics
   }
 
-  def initialize(code, machine:, params: "", intrinsics: :cable, intrinsics_args: {}, verbose: true)
+  def initialize(
+    code,
+    machine:,
+    params: "",
+    intrinsics: :cable,
+    intrinsics_args: {},
+    verbose: true,
+    pid: nil
+  )
     @verbose = Rails.env.test? ? false : verbose
     @code = code
     @params = params
@@ -26,7 +34,7 @@ class Lgo
       p.name = "lgoscript"
       p.state = :waiting
       p.lgo_process = LgoProcess.new(
-        pid: nil,
+        pid: pid,
         state: :waiting,
         code: @code
       )

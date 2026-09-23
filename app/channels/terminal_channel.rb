@@ -9,7 +9,8 @@ class TerminalChannel < ApplicationCable::Channel
   end
 
   def unsubscribed
-    @cable_intrinsics_server.kill
+    cable_intrinsics_server.kill
+    Process.kill('HUP',pid)
   rescue DRb::DRbConnError
   end
 
@@ -18,7 +19,9 @@ class TerminalChannel < ApplicationCable::Channel
 
     terminal_broadcaster.disable_input(str)
 
-    @cable_intrinsics_server.receive_input(str)
+    # todo this cable_intrinsics_server was set only once in the initializer but it could be called
+    # before the server started and it caused problems
+    cable_intrinsics_server.receive_input(str)
   end
 
   def run(args)
@@ -31,9 +34,12 @@ class TerminalChannel < ApplicationCable::Channel
       code,
       machine: Machine.find(@machine_id),
       params: params,
+      pid: app_id,
       intrinsics_args: {broadcaster: terminal_broadcaster}
     )
 
+    # todo fucking dont use process fork ?
+    # this makes sttoping the rails server in system tests hang
     pid = fork {
       @lgo.intrinsics.initialize_server
       @lgo.run
@@ -41,6 +47,11 @@ class TerminalChannel < ApplicationCable::Channel
     Process.detach(pid)
 
     DRb.start_service
-    @cable_intrinsics_server = DRbObject.new_with_uri(@lgo.intrinsics.uri)
+  end
+
+  private
+
+  def cable_intrinsics_server
+    @cable_intrinsics_server ||= DRbObject.new_with_uri(@lgo.intrinsics.uri)
   end
 end

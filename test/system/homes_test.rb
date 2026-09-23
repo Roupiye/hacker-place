@@ -13,10 +13,14 @@ class HomesTest < ApplicationSystemTestCase
     sleep 1
     find('.view-lines').click
     send_keys([:control, 'a'])
-    Clipboard.copy("print(\"uwu\")")
+    Clipboard.copy("v = input(\"owo\")\nprint(\"lol\" .. v)")
+    Clipboard.copy("v = input(\"owo\")\nprint(\"lol\" .. v)")
     send_keys([:control, 'v'])
     click_on "run"
+    sleep 2
+    find("##{LgoProcess.last.pid}-run-stdin-input").send_keys("uwu")
+    click_on "send input"
 
-    assert_text "uwu"
+    assert_text "loluwu"
   end
 end
