@@ -10,7 +10,6 @@ class TerminalChannel < ApplicationCable::Channel
 
   def unsubscribed
     cable_intrinsics_server.kill
-    Process.kill('HUP',pid)
   rescue DRb::DRbConnError
   end
 
@@ -28,30 +27,19 @@ class TerminalChannel < ApplicationCable::Channel
     args.transform_keys(&:underscore).symbolize_keys => {app_id:, code:, params:}
 
     @terminal_broadcaster = TerminalBroadcast.new(app_id, app_id)
-    terminal_broadcaster.clear_terminal
 
-    @lgo = Lgo.new(
-      code,
-      machine: Machine.find(@machine_id),
-      params: params,
-      pid: app_id,
-      intrinsics_args: {broadcaster: terminal_broadcaster}
+    RunProcessJob.perform_later(
+      app_id:,
+      code:,
+      params:,
+      machine_id: @machine_id
     )
-
-    # todo fucking dont use process fork ?
-    # this makes sttoping the rails server in system tests hang
-    pid = fork {
-      @lgo.intrinsics.initialize_server
-      @lgo.run
-    }
-    Process.detach(pid)
-
     DRb.start_service
   end
 
   private
 
   def cable_intrinsics_server
-    @cable_intrinsics_server ||= DRbObject.new_with_uri(@lgo.intrinsics.uri)
+    @cable_intrinsics_server ||= DRbObject.new_with_uri(LgoProcess.find_by(pid: @app_id).intrinsics_uri)
   end
 end

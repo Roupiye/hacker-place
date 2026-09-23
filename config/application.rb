@@ -34,10 +34,5 @@ module HackerPlace
     config.time_zone = "Central Time (US & Canada)"
     config.active_support.to_time_preserves_timezone = :zone
     # config.eager_load_paths << Rails.root.join("extras")
-
-    # Use a real queuing backend for Active Job (and separate queues per environment).
-    config.active_job.queue_adapter = :solid_queue
-    config.solid_queue.connects_to = { database: { writing: :queue } }
-    # config.active_job.queue_name_prefix = "hacker_place_production"
   end
 end
