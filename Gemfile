@@ -22,7 +22,6 @@ gem "bcrypt", "~> 3.1.7"
 gem "drb", "~> 2.2"
 gem "redis-session-store", "~> 0.11.5"
 gem "sys-proctable"
-gem "sidekiq", ">= 7.2"
 gem "model_probe", "~> 1.1"
 
 # gem "jbuilder"
@@ -56,3 +55,6 @@ end
 
 gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
+
+gem "solid_queue", "~> 1.7"
+gem "solid_queue_dashboard", git: "https://github.com/akodkod/solid-queue-dashboard"

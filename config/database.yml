@@ -7,8 +7,13 @@ default: &default
   password: postgres
 
 development:
-  <<: *default
-  database: hacker_place_development
+  primary: &primary_development
+    <<: *default
+    database: hacker_place_development
+  queue:
+    <<: *primary_development
+    database: hacker_place_development_queue
+    migrations_paths: db/queue_migrate
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -18,6 +23,11 @@ test:
   database: hacker_place_test
 
 production:
-  <<: *default
-  database: hacker_place_production
-  url: <%= ENV['DATABASE_URL'] %>
+  primary: &primary_production
+    <<: *default
+    url: <%= ENV['DATABASE_URL'] %>
+    database: hacker_place_production
+  queue:
+    <<: *primary_production
+    database: hacker_place_production_queue
+    migrations_paths: db/queue_migrate
